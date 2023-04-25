@@ -5,6 +5,9 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Layout from "./components/Layout";
+import Chat from "./pages/Chat";
+import Test from "./pages/Test";
+import ProtectedRoute from "./components/ProtectedRoute/Index";
 
 const router = createBrowserRouter([
   {
@@ -18,17 +21,26 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: "/test",
+    element: <Test />,
+    errorElement: <ErrorPage />,
+  },
+  {
     path: "/",
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <ProtectedRoute element={<Home />} />,
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: <ProtectedRoute element={<Profile />} />,
+      },
+      {
+        path: "/chat",
+        element: <ProtectedRoute element={<Chat />} />,
       },
     ],
   },

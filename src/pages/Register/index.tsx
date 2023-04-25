@@ -1,8 +1,20 @@
 import { Link } from "react-router-dom";
+import useRefreshToken from "../../hooks/useRefreshToken";
+import { FormEventHandler } from "react";
 
 type Props = {};
 
 function Index({}: Props) {
+  const refresh = useRefreshToken();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const res = await refresh();
+
+    console.log(res);
+  };
+
   return (
     <div className="w-full h-screen bg-dark overflow-clip relative">
       <img
@@ -16,10 +28,7 @@ function Index({}: Props) {
         alt=""
       />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur-md bg-[rgba(255,255,255,.2)] min-w-[550px] px-[2rem] py-[3rem] rounded-lg">
-        <form
-          className="flex flex-col gap-5"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="usename"

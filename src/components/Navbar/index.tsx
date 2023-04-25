@@ -1,53 +1,59 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 function Index({}: Props) {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-primary  sticky top-0 z-[999]">
       <div className="flex justify-between max-w-[1800px] m-auto items-center py-5 gap-3">
         <div className="w-3/12">
-          <span className="font-extrabold text-3xl cursor-pointer text-white">
+          <span className="text-3xl font-extrabold text-white cursor-pointer">
             PARTY FREAKS
           </span>
         </div>
 
         <div className="w-5/12">
           <div className="relative">
-            <Search className="absolute top-1 left-2 text-2xl" />
+            <Search className="absolute text-2xl top-1 left-2" />
             <input
               type="text"
               placeholder="search bitch"
-              className="w-full bg-white rounded-full outline-none py-1 px-10"
+              className="w-full px-10 py-1 bg-white rounded-full outline-none"
             />
           </div>
         </div>
 
-        <div className="flex gap-5 items-center w-4/12 justify-around">
-          <div className="text-white space-x-3">
-            <span className="cursor-pointer hover:text-secondary uppercase font-bold text-sm">
+        <div className="flex items-center justify-around w-4/12 gap-5">
+          <div className="space-x-3 text-white">
+            <span className="text-sm font-bold uppercase cursor-pointer hover:text-secondary">
               Homepage
             </span>
-            <span className="cursor-pointer hover:text-secondary uppercase font-bold text-sm">
+            <span className="text-sm font-bold uppercase cursor-pointer hover:text-secondary">
               Timeline
             </span>
           </div>
-          <div className="flex gap-5 items-center text-white">
-            <div className="cursor-pointer relative">
+          <div className="flex items-center gap-5 text-white">
+            <div className="relative cursor-pointer">
               <Person className="hover:text-secondary" />
-              <span className="absolute -top-3 bg-error px-2 rounded-full -right-3">
+              <span className="absolute px-2 rounded-full -top-3 bg-error -right-3">
                 5
               </span>
             </div>
-            <div className="cursor-pointer relative">
-              <Chat className="hover:text-secondary" />
-              <span className="absolute -top-3 bg-error px-2 rounded-full -right-3">
+            <div className="relative cursor-pointer">
+              <Chat
+                className="hover:text-secondary"
+                onClick={() => navigate("/chat")}
+              />
+              <span className="absolute px-2 rounded-full -top-3 bg-error -right-3">
                 3
               </span>
             </div>
-            <div className="cursor-pointer relative">
+            <div className="relative cursor-pointer">
               <Notifications className="hover:text-secondary" />
-              <span className="absolute -top-3 bg-error px-2 rounded-full -right-3">
+              <span className="absolute px-2 rounded-full -top-3 bg-error -right-3">
                 2
               </span>
             </div>
