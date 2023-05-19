@@ -5,10 +5,7 @@ import App from "./App";
 import axios from "axios";
 import AuthProvider from "./context/AuthContext";
 
-const AUTH_TOKEN = localStorage.getItem("token");
-
-axios.defaults.baseURL = "http://localhost:8800/";
-axios.defaults.headers.common["Authorization"] = `Bearer ${AUTH_TOKEN}`;
+axios.defaults.baseURL = "http://localhost:5000/api";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.response.use(
@@ -19,23 +16,22 @@ axios.interceptors.response.use(
     const originalRequest = error.config;
 
     // If the response has a 401 status (unauthorized) and doesn't have a `retry` flag, try to refresh the token
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
         // Hit the /refresh endpoint to get a new token
-        const { data } = await axios.post("/refresh", {
-          refreshToken: localStorage.getItem("refreshToken"),
-        });
+        const { data } = await axios.post("/auth/refresh");
 
         // Update the access token in local storage
-        console.log({ data });
 
         // Update the access token in the original request and retry it
         originalRequest.headers.Authorization = `Bearer ${data.token}`;
         return axios(originalRequest);
       } catch (refreshError) {
-        console.error("Failed to refresh token", refreshError);
+        if (error.config._retry && error.response?.status)
+          window.location.href = "/login";
+
         return Promise.reject(error);
       }
     }

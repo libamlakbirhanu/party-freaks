@@ -7,10 +7,13 @@ function Index({}: Props) {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-primary  sticky top-0 z-[999]">
+    <div className="bg-primary px-5  sticky top-0 z-[999]">
       <div className="flex justify-between max-w-[1800px] m-auto items-center py-5 gap-3">
         <div className="w-3/12">
-          <span className="text-3xl font-extrabold text-white cursor-pointer">
+          <span
+            className="text-3xl font-extrabold text-white cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             PARTY FREAKS
           </span>
         </div>
@@ -26,7 +29,7 @@ function Index({}: Props) {
           </div>
         </div>
 
-        <div className="flex items-center justify-around w-4/12 gap-5">
+        <div className="flex items-center justify-end w-4/12 gap-10">
           <div className="space-x-3 text-white">
             <span className="text-sm font-bold uppercase cursor-pointer hover:text-secondary">
               Homepage
@@ -57,12 +60,12 @@ function Index({}: Props) {
                 2
               </span>
             </div>
+            <img
+              src="/assets/imgs/destruction.png"
+              alt="profile"
+              className="w-[50px] h-[50px] rounded-full object-cover"
+            />
           </div>
-          <img
-            src="/assets/imgs/destruction.png"
-            alt="profile"
-            className="w-[50px] h-[50px] rounded-full object-cover"
-          />
         </div>
       </div>
     </div>

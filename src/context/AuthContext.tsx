@@ -20,9 +20,7 @@ export const AuthContext = createContext<authType | null>(null);
 
 const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User>();
-  const [loading, setLoading] = useState<Boolean>(
-    window.location.pathname !== "/login" ? true : false
-  );
+  const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     if (user?.token) {
@@ -31,7 +29,10 @@ const AuthProvider = ({ children }: Props) => {
 
     const refresh = async () => {
       try {
-        const res = await axios.post("api/auth/refresh");
+        const res = await axios.post("/auth/refresh");
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.data?.token}`;
 
         setUser((prev: any) => ({ ...prev, token: res.data.token }));
 
@@ -41,7 +42,7 @@ const AuthProvider = ({ children }: Props) => {
       }
     };
 
-    window.location.pathname !== "/login" && !user && refresh();
+    !user && refresh();
   }, [user]);
 
   if (loading) {

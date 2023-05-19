@@ -19,10 +19,10 @@ function Index({}: Props) {
         <div className="flex gap-5 p-7">
           <div className="w-3/5">
             <Share />
+            {/* <Post />
             <Post />
             <Post />
-            <Post />
-            <Post />
+            <Post /> */}
           </div>
           <div className="w-2/5">
             <div className="mb-12">
